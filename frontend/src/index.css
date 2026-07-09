@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ── NariGuard Brand Palette ── */
+  --pink:        #e91e8c;
+  --pink-bright: #ff3fa0;
+  --pink-dark:   #c0156e;
+  --purple:      #9b30e0;
+  --purple-dark: #6a15a8;
+  --violet:      #7b2fbe;
+
+  /* ── Backgrounds ── */
+  --bg:          #0e0618;
+  --bg-mid:      #130920;
+  --bg-card:     rgba(20, 6, 35, 0.85);
+  --bg-glass:    rgba(233, 30, 140, 0.06);
+
+  /* ── Text ── */
+  --text:        #f5c6e8;
+  --text-muted:  #c890d8;
+  --text-h:      #fff0fa;
+
+  /* ── Borders / Accents ── */
+  --border:      rgba(233, 30, 140, 0.22);
+  --border-h:    rgba(233, 30, 140, 0.55);
+  --accent:      var(--pink);
+  --accent-bg:   rgba(233, 30, 140, 0.10);
+  --accent-border: rgba(233, 30, 140, 0.50);
+
+  /* ── Shadows ── */
+  --shadow:
+    rgba(233, 30, 140, 0.15) 0 10px 30px -5px,
+    rgba(0, 0, 0, 0.50) 0 4px 6px -2px;
+  --glow:       0 0 24px rgba(233, 30, 140, 0.45);
+
+  /* ── Gradients ── */
+  --grad-primary:  linear-gradient(135deg, #e91e8c 0%, #9b30e0 100%);
+  --grad-bg:       linear-gradient(180deg, #0e0618 0%, #130920 60%, #1a0a2e 100%);
+  --grad-card:     linear-gradient(145deg, rgba(30,8,55,0.9) 0%, rgba(14,6,24,0.95) 100%);
+
+  /* ── Typography ── */
+  --sans:    'Inter', 'Rajdhani', system-ui, sans-serif;
+  --heading: 'Orbitron', 'Inter', system-ui, sans-serif;
+  --mono:    ui-monospace, 'Courier New', Consolas, monospace;
+
+  font: 17px/150% var(--sans);
+  letter-spacing: 0.15px;
+  color-scheme: dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--pink), var(--purple));
+  border-radius: 2px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+h1, h2 {
+  font-family: var(--heading);
+  font-weight: 700;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: 52px;
+  letter-spacing: -1.2px;
+  margin: 28px 0;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2 {
+  font-size: 22px;
+  line-height: 120%;
+  letter-spacing: -0.2px;
+  margin: 0 0 8px;
+}
+
+p { margin: 0; }
+
+/* ── NariGuard Global Utilities ── */
+.ng-glow {
+  text-shadow: 0 0 20px rgba(233,30,140,0.5), 0 0 50px rgba(155,48,224,0.3);
+}
+.ng-card {
+  background: var(--grad-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+}
+.ng-btn {
+  background: var(--grad-primary);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-family: var(--heading);
+  font-size: 13px;
+  letter-spacing: 2px;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: box-shadow 0.25s, transform 0.15s;
+}
+.ng-btn:hover {
+  box-shadow: 0 0 24px rgba(233,30,140,0.5);
+  transform: translateY(-1px);
+}
