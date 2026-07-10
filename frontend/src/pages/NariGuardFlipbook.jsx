@@ -147,7 +147,7 @@ export default function NariGuardFlipbook() {
         >
           {/* Iframe */}
           <iframe
-            src="https://heyzine.com/flip-book/3d12cf6d45.html"
+            src="https://heyzine.com/flip-book/f9aed297bf.html"
             title="Flipbook"
             style={{
               border: "none",
