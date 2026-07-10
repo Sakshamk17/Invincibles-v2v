@@ -38,15 +38,22 @@ NariGuard is an intelligent personal safety ecosystem designed specifically for 
 ### 6. De-escalation Ringtone Simulation (Fake Call)
 * **Frontend Execution:** Simulates a realistic native incoming phone call interface with configurable caller IDs combined with HTML5 `<audio>` ringtone playback to serve as a plausible tool for non-violent social de-escalation.
 
+### 7. Guardian Mode — "Follow Me" Live Tracking
+* **Trusted Companion Sharing:** Lets a user start a live-tracking session and share access with a trusted contact (a "Guardian"), so someone they know can watch their location move in real time while they're in transit — walking home, taking a cab, or travelling somewhere unfamiliar.
+* **Session-Based, Not Always-On:** Tracking is opt-in and scoped to a session the user starts and ends themselves, keeping it distinct from the always-on Geofencing feature and avoiding unnecessary continuous location exposure.
+* **Peace-of-Mind Layer:** Sits between routine safety (Geofencing) and emergency response (SOS) — a lightweight way for someone to feel accompanied during a specific journey without needing to declare an emergency.
+
 ---
 
 ## Tech Stack & Tools
-* **Frontend:** React 18+, Vite, React Router, Tailwind CSS / Custom Glassmorphic CSS
+* **Frontend:** React 18+, Vite, React Router, Custom Glassmorphic CSS (inline CSS-in-JS)
 * **Backend:** Node.js, Express.js
 * **Database:** MongoDB Atlas, Mongoose ODM
 * **APIs & Protocols:** Twilio API (Voice & SMS), OpenStreetMap Overpass API, Web Speech API, HTML5 Geolocation API
+* **Live Location Sharing:** Real-time location broadcast pipeline powering Guardian Mode's Follow Me sessions
 * **Deployment & Infrastructure:** Vercel (Frontend), Render (Backend)
-* **AI Tools Utilized:** Claude 3.5 Sonnet & OpenAI GPT-4o (Architectural scaffolding, Twilio multi-channel parallel integration logic, and code optimization).
+* **AI Tools Used in Development:** Claude (Anthropic) — architecture planning, feature scoping, Twilio multi-channel parallel integration logic, and code assistance during the hackathon
+* **In-App AI Features:** None currently implemented
 
 ---
 
@@ -55,12 +62,13 @@ NariGuard is an intelligent personal safety ecosystem designed specifically for 
 ### Architectural Workflow & System Blueprint
 NariGuard is structured around a classic decoupled client-server architecture designed to prioritize high availability and minimal latency:
 
-1. **The Client Tier (React 18 + Vite):** Maintains background execution threads using standard Web APIs. The `Gpstracker.jsx` component implements the `SpeechRecognition` listener to intercept voice triggers, alongside `watchPosition()` to stream continuous coordinate strings.
-2. **The Server Tier (Express.js on Node.js):** Coordinates authorization protocols (JWT-secured sessions, Google Identity Services) and exposed REST endpoints (`/api/sos`, `/api/reports`). 
+1. **The Client Tier (React 18 + Vite):** Maintains background execution threads using standard Web APIs. The `Gpstracker.jsx` component implements the `SpeechRecognition` listener to intercept voice triggers, alongside `watchPosition()` to stream continuous coordinate strings for both Geofencing and Guardian Mode.
+2. **The Server Tier (Express.js on Node.js):** Coordinates authorization protocols (JWT-secured sessions, Google Identity Services) and exposed REST endpoints (`/api/sos`, `/api/harassment`, `/api/profile`).
 3. **The Messaging Layer (Twilio Integration):** When the backend receives a POST request to `/api/sos`, it triggers asynchronous, parallelized non-blocking Promise pools via the Twilio SDK to fire voice calls and text alerts concurrently, mitigating the risk of structural bottlenecks.
 4. **Data Layer (MongoDB):** Organizes user profiles, emergency contacts with assigned discrete priority bands (High/Medium/Low), and an indexed `Harassment Report Collection` optimized for lightweight spatial range queries.
+5. **Guardian Mode Layer:** A session-scoped live location pipeline that lets a designated Guardian view a user's position updating in real time for the duration of an active Follow Me session, independent of the always-on Geofencing watch.
 
 ### AI Integration & Coordination Summary
-AI tooling was deeply integrated during the 36-hour hackathon execution cycle:
+AI tooling was integrated during the 36-hour hackathon execution cycle:
 * **Feature Synthesis:** Used for structural drafting of the asynchronous Twilio parallel routing matrix, ensuring that a lagging or failed network request to one contact wouldn't delay the remainder of the pipeline.
-* **Boilerplate Reduction:** Prompts were systematically orchestrated to rapidly scaffold Mongoose data modeling definitions for the anonymous reporting feature, significantly lowering time-to-market and freeing allocation towards robust manual edge-case verification testing.
+* **Boilerplate Reduction:** Prompts were systematically used to scaffold Mongoose data modeling definitions for the anonymous reporting feature, lowering time-to-market and freeing time for manual edge-case verification testing.
