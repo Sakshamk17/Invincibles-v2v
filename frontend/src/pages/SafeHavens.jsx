@@ -48,11 +48,14 @@ export default function SafeHavens() {
         );
         out body center;`;
 
-      const mirrors = [
-        "https://overpass.kumi.systems/api/interpreter",
-        "https://overpass.osm.ch/api/interpreter",
-        "https://lz4.overpass-api.de/api/interpreter"
-      ];
+      const mirrors = import.meta.env.DEV
+        ? ["https://overpass-api.de/api/interpreter"]
+        : [
+            "https://lz4.overpass-api.de/api/interpreter",
+            "https://overpass.kumi.systems/api/interpreter",
+            "https://overpass.osm.ch/api/interpreter",
+            "https://overpass-api.de/api/interpreter"
+          ];
 
       let response;
       let lastError;
