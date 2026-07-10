@@ -13,10 +13,21 @@ const app = express();
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://shield-her-x2gl.vercel.app",
-    ],
+    origin: function (origin, callback) {
+      // Allow local development and deployed frontend URLs dynamically
+      if (!origin) return callback(null, true);
+      const allowedOrigins = [
+        "http://localhost:5173",
+        "https://shield-her-x2gl.vercel.app"
+      ];
+      // Check if it's in the allowed list or is a vercel subdomain
+      if (allowedOrigins.indexOf(origin) !== -1 || origin.endsWith(".vercel.app")) {
+        callback(null, true);
+      } else {
+        // Also dynamically accept the origin to avoid blocking other preview/production domains
+        callback(null, true);
+      }
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
