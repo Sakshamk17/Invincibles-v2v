@@ -7,7 +7,7 @@ NariGuard is an intelligent personal safety ecosystem designed specifically for 
 
 ## Important Links
 * **Live Deployment Link:** [https://nariguard.vercel.app](https://nariguard.vercel.app)
-* **Demo Video Link:** [https://youtube.com/watch?v=nariguard-demo](https://youtube.com/watch?v=nariguard-demo)
+* **Demo Video Link:** [https://youtube.com/watch?v=nariguard-demo]
 
 ---
 
