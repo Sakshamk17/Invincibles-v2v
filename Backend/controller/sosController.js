@@ -44,8 +44,8 @@ export const sendSOS = async (req, res) => {
     return res.status(400).json({ msg: "Missing required fields" });
   }
 
-  if (!process.env.TWILIO_NUMBER) {
-    return res.status(500).json({ msg: "TWILIO number missing in .env" });
+  if (!process.env.TWILIO_PHONE_NUMBER) {
+    return res.status(500).json({ msg: "TWILIO_PHONE_NUMBER missing in .env" });
   }
 
   const locationLink = `https://maps.google.com/?q=${lat},${lng}`;
@@ -98,14 +98,9 @@ export const sendSOS = async (req, res) => {
         // 📩 SMS
         try {
           await client.messages.create({
-            from: process.env.TWILIO_NUMBER,
+            from: process.env.TWILIO_PHONE_NUMBER,
             to: number,
-            // body:
-            // `🚨 EMERGENCY ALERT 🚨\n\n` +
-            // `${senderName} is in danger.\n\n` +
-            // `She needs your help urgently!\n\n` +
-            // `📍 Please check the location here:\n${locationLink}`,
-            body: `Hi, ${senderName} share her location . Please check  ${locationLink}`,
+            body: `Hi, ${senderName} share her location. Please check ${locationLink}`,
           });
           console.log("✅ SMS sent to", number);
         } catch (err) {
@@ -115,7 +110,7 @@ export const sendSOS = async (req, res) => {
         // 📞 CALL (always try)
         try {
           await client.calls.create({
-            from: process.env.TWILIO_NUMBER,
+            from: process.env.TWILIO_PHONE_NUMBER,
             to: number,
             twiml: `<Response><Say voice="alice">Hello, This is an emergency call. ${senderName} is in danger and needs your help immediately. Her live location has been sent to your phone. Please respond as soon as possible.</Say></Response>`,
           });

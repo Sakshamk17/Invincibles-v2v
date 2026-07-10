@@ -1320,7 +1320,6 @@ function LoginPage({ onSwitch }) {
                 ? 220
                 : 320,
           text: "continue_with",
-          width: "250",
         }
       );
     };
@@ -1335,7 +1334,6 @@ function LoginPage({ onSwitch }) {
       style={{
         position: "relative",
         zIndex: 10,
-        width: "100%",
         width: "100%",
         padding: "clamp(20px, 5vw, 40px) clamp(16px, 5vw, 36px)",
         margin: "0 auto",
@@ -1402,7 +1400,6 @@ function LoginPage({ onSwitch }) {
                 margin: 0,
                 fontSize: "clamp(1.4rem, 5vw, 2rem)",
                 letterSpacing: "clamp(2px, 1vw, 4px)",
-                letterSpacing: "4px",
                 color: "#f8a8d8",
                 textShadow: "0 0 30px rgba(233,30,140,0.5)",
                 fontFamily: "'Courier New', monospace",
@@ -1694,7 +1691,6 @@ function SignupPage({ onSwitch }) {
         position: "relative",
         zIndex: 10,
         width: "100%",
-        width: "100%",
         padding: "clamp(20px, 5vw, 40px) clamp(16px, 5vw, 36px)",
         margin: "0 auto",
         animation: "slideUp 0.6s cubic-bezier(0.23,1,0.32,1) both",
@@ -1702,7 +1698,7 @@ function SignupPage({ onSwitch }) {
     >
       <div
         style={{
-          background: "rgba(4, 18, 48, 0.67)",
+          backgroundColor: "rgba(4, 18, 48, 0.67)",
           border: "1px solid rgba(180,20,120,0.18)",
           borderRadius: "16px",
           padding: "36px 36px 32px",
@@ -1760,7 +1756,6 @@ function SignupPage({ onSwitch }) {
                 margin: 0,
                 fontSize: "clamp(1.4rem, 5vw, 2rem)",
                 letterSpacing: "clamp(2px, 1vw, 4px)",
-                letterSpacing: "4px",
                 color: "#f8a8d8",
                 textShadow: "0 0 30px rgba(233,30,140,0.5)",
                 fontFamily: "'Courier New', monospace",

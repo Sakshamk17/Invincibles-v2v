@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:5000/api/harassment"; // swap at deployment checkpoint
+import { BASE_URL } from "../api/config";
+
+const API_URL = `${BASE_URL}/harassment`;
 
 export const submitReport = async (reportData) => {
   const token = localStorage.getItem("token");

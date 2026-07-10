@@ -8,6 +8,10 @@ import HomePage from "./pages/HomePage";
 import NariGuardFlipbook from "./pages/NariGuardFlipbook";
 import Dashboard from "./pages/Dashboard";
 import HarassmentReport from "./pages/HarassmentReport";
+import PublicSafetyFeed from "./pages/PublicSafetyFeed";
+import SafeHavens from "./pages/SafeHavens";
+import FakeCall from "./pages/FakeCall";
+import FollowMe from "./pages/FollowMe";
 
 function App() {
   return (
@@ -24,6 +28,10 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/sos-confirmation" element={<SOSConfirmation />} />
         <Route path="/report" element={<HarassmentReport />} />
+        <Route path="/feed" element={<PublicSafetyFeed />} />
+        <Route path="/safe-havens" element={<SafeHavens />} />
+        <Route path="/fake-call" element={<FakeCall />} />
+        <Route path="/follow-me" element={<FollowMe />} />
       
       </Routes>
     </BrowserRouter>

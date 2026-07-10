@@ -5,6 +5,7 @@ import authRoutes from "./routes/authRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js";
 import sosRoutes from "./routes/sosRoutes.js";
 import harassmentRoutes from "./routes/harassmentRoutes.js";
+import liveTrackingRoutes from "./routes/liveTrackingRoutes.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/sos", sosRoutes); 
 app.use("/api/harassment", harassmentRoutes);
+app.use("/api/tracking", liveTrackingRoutes);
 
 const PORT = process.env.PORT || 8000;
 

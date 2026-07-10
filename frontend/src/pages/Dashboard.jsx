@@ -419,6 +419,53 @@ function Navbar({ name }) {
                 </div>
               </div>
 
+              {/* Home option */}
+              <div
+                onClick={() => {
+                  setDropdownOpen(false);
+                  navigate("/home");
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "11px 16px",
+                  cursor: "pointer",
+                  borderBottom: "1px solid rgba(180,20,120,0.07)",
+                  transition: "background .15s",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = "rgba(233,30,140,0.07)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.background = "transparent")
+                }
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="rgba(233,30,140,0.7)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+                <span
+                  style={{
+                    fontFamily: "'Courier New',monospace",
+                    fontSize: "11px",
+                    letterSpacing: "2px",
+                    color: "rgba(240,168,210,0.8)",
+                  }}
+                >
+                  HOME
+                </span>
+              </div>
+
               {/* Profile option */}
               <div
                 onClick={() => {
@@ -497,6 +544,146 @@ function Navbar({ name }) {
                   }}
                 >
                   REPORT INCIDENT
+                </span>
+              </div>
+
+              {/* Safety Feed option */}
+              <div
+                onClick={() => {
+                  setDropdownOpen(false);
+                  navigate("/feed");
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "11px 16px",
+                  cursor: "pointer",
+                  borderBottom: "1px solid rgba(180,20,120,0.07)",
+                  transition: "background .15s",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = "rgba(233,30,140,0.07)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.background = "transparent")
+                }
+              >
+                <span style={{ fontSize: "14px", flexShrink: 0 }}>📡</span>
+                <span
+                  style={{
+                    fontFamily: "'Courier New',monospace",
+                    fontSize: "11px",
+                    letterSpacing: "2px",
+                    color: "rgba(240,168,210,0.8)",
+                  }}
+                >
+                  SAFETY FEED
+                </span>
+              </div>
+
+              {/* Safe Havens option */}
+              <div
+                onClick={() => {
+                  setDropdownOpen(false);
+                  navigate("/safe-havens");
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "11px 16px",
+                  cursor: "pointer",
+                  borderBottom: "1px solid rgba(180,20,120,0.07)",
+                  transition: "background .15s",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = "rgba(233,30,140,0.07)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.background = "transparent")
+                }
+              >
+                <span style={{ fontSize: "14px", flexShrink: 0 }}>🛡️</span>
+                <span
+                  style={{
+                    fontFamily: "'Courier New',monospace",
+                    fontSize: "11px",
+                    letterSpacing: "2px",
+                    color: "rgba(240,168,210,0.8)",
+                  }}
+                >
+                  SAFE HAVENS
+                </span>
+              </div>
+
+              {/* Fake Call option */}
+              <div
+                onClick={() => {
+                  setDropdownOpen(false);
+                  navigate("/fake-call");
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "11px 16px",
+                  cursor: "pointer",
+                  borderBottom: "1px solid rgba(180,20,120,0.07)",
+                  transition: "background .15s",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = "rgba(233,30,140,0.07)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.background = "transparent")
+                }
+              >
+                <span style={{ fontSize: "14px", flexShrink: 0 }}>📞</span>
+                <span
+                  style={{
+                    fontFamily: "'Courier New',monospace",
+                    fontSize: "11px",
+                    letterSpacing: "2px",
+                    color: "rgba(240,168,210,0.8)",
+                  }}
+                >
+                  DE-ESCALATION CALL
+                </span>
+              </div>
+
+              {/* Follow Me option */}
+              <div
+                onClick={() => {
+                  setDropdownOpen(false);
+                  navigate("/follow-me");
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "11px 16px",
+                  cursor: "pointer",
+                  borderBottom: "1px solid rgba(180,20,120,0.07)",
+                  transition: "background .15s",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = "rgba(233,30,140,0.07)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.background = "transparent")
+                }
+              >
+                <span style={{ fontSize: "14px", flexShrink: 0 }}>🚶</span>
+                <span
+                  style={{
+                    fontFamily: "'Courier New',monospace",
+                    fontSize: "11px",
+                    letterSpacing: "2px",
+                    color: "rgba(240,168,210,0.8)",
+                  }}
+                >
+                  GUARDIAN MODE
                 </span>
               </div>
 
@@ -1453,26 +1640,66 @@ export default function Dashboard() {
                 style={{
                   padding: "clamp(10px, 2vw, 14px) clamp(16px, 3vw, 32px)",
                   flexShrink: 0,
-                  background: shieldActive
-                    ? "linear-gradient(90deg,rgba(120,0,180,0.5),rgba(233,30,140,0.38))"
-                    : "rgba(255,0,60,0.15)",
-                  border: `1px solid ${shieldActive ? "rgba(0,208,255,0.28)" : "rgba(255,0,60,0.5)"}`,
+                  background: "linear-gradient(90deg, #ff0055, #9b003c)",
+                  border: "1px solid #ff3366",
                   borderRadius: "8px",
-                  color: shieldActive ? "#f8a8d8" : "#ff4488",
+                  color: "#ffffff",
                   fontSize: "clamp(10px, 2vw, 12px)",
                   letterSpacing: "2.5px",
                   fontFamily: "'Orbitron',monospace",
-                  fontWeight: 700,
+                  fontWeight: 900,
                   cursor: "pointer",
-                  boxShadow: shieldActive
-                    ? "0 0 30px rgba(233,30,140,0.2)"
-                    : "0 0 30px rgba(255,0,60,0.2)",
-                  animation: "pulseRing 2.5s ease-in-out infinite",
+                  boxShadow: "0 0 35px rgba(255,0,85,0.4)",
+                  animation: "pulseRing 1.5s ease-in-out infinite",
                   transition: "all .3s",
                 }}
-                onClick={() => setShieldActive((a) => !a)}
+                onClick={async () => {
+                  if (!navigator.geolocation) {
+                    alert("Geolocation is not supported by your browser.");
+                    return;
+                  }
+                  
+                  const btn = document.querySelector(".sos-btn");
+                  const oldText = btn.innerText;
+                  btn.innerText = "TRIGGERING...";
+                  btn.style.background = "#550011";
+
+                  navigator.geolocation.getCurrentPosition(
+                    async (pos) => {
+                      const lat = pos.coords.latitude;
+                      const lng = pos.coords.longitude;
+                      try {
+                        const res = await triggerSOS(lat, lng);
+                        console.log("SOS Triggered via Button:", res);
+                        
+                        const notifiedContacts = res.contacts?.length
+                          ? res.contacts
+                          : res.success?.length
+                          ? res.success
+                          : [];
+
+                        navigate("/sos-confirmation", {
+                          state: {
+                            contacts: notifiedContacts,
+                            lat,
+                            lng,
+                          },
+                        });
+                      } catch (err) {
+                        alert("SOS Dispatch Failed: " + err.message);
+                        btn.innerText = oldText;
+                        btn.style.background = "linear-gradient(90deg, #ff0055, #9b003c)";
+                      }
+                    },
+                    (err) => {
+                      alert("Location Error: " + err.message);
+                      btn.innerText = oldText;
+                      btn.style.background = "linear-gradient(90deg, #ff0055, #9b003c)";
+                    }
+                  );
+                }}
               >
-                {shieldActive ? "🛡 GUARD ON" : "⚠ GUARD OFF"}
+                🚨 TRIGGER SOS
               </button>
             </div>
             <div

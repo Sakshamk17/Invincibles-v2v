@@ -1,5 +1,5 @@
-﻿
-import { useState } from "react";
+
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { triggerSOS } from "../services/sosService";
 
@@ -9,38 +9,69 @@ export default function VoiceGPS() {
   const [sending, setSending] = useState(false);
   const [location, setLocation] = useState(null);
 
+  const recognitionRef = useRef(null);
+  const shouldListenRef = useRef(false);
+
   const startVoice = () => {
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
-      alert("Voice recognition not supported");
+      alert("Voice recognition not supported in this browser. Use Chrome.");
       return;
     }
 
-    const recognition = new SpeechRecognition();
-    recognition.continuous = true;
-    recognition.lang = "en-US";
+    if (shouldListenRef.current) return; // already running
+    shouldListenRef.current = true;
+    setListening(true);
 
-    recognition.onstart = () => setListening(true);
+    const createRecognition = () => {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;  // ← false is more reliable across browsers
+      recognition.interimResults = true; // catch words as they're spoken
+      recognition.lang = "en-US";
+      recognitionRef.current = recognition;
 
-    recognition.onresult = (event) => {
-      const text = event.results[event.results.length - 1][0].transcript
-        .toLowerCase()
-        .trim();
-      console.log("Heard:", text);
+      recognition.onresult = (event) => {
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const text = event.results[i][0].transcript.toLowerCase().trim();
+          console.log("Heard:", text, "| Final:", event.results[i].isFinal);
+          if (text.includes("help")) {
+            sendSOS();
+            return;
+          }
+        }
+      };
 
-      if (text.includes("help")) {
-        sendSOS();
-      }
+      recognition.onerror = (e) => {
+        console.warn("Voice error:", e.error);
+        // "no-speech" and "aborted" are normal — just restart
+      };
+
+      recognition.onend = () => {
+        // Auto-restart as long as we're in listening mode and not sending SOS
+        if (shouldListenRef.current && !sending) {
+          setTimeout(() => {
+            if (shouldListenRef.current) {
+              try { createRecognition().start(); } catch {}
+            }
+          }, 300);
+        }
+      };
+
+      return recognition;
     };
 
-    recognition.onerror = (e) => {
-      console.error("Voice error:", e.error);
-      setListening(false);
-    };
+    createRecognition().start();
+  };
 
-    recognition.start();
+  const stopVoice = () => {
+    shouldListenRef.current = false;
+    setListening(false);
+    if (recognitionRef.current) {
+      try { recognitionRef.current.abort(); } catch {}
+      recognitionRef.current = null;
+    }
   };
 
   const sendSOS = () => {
@@ -229,30 +260,29 @@ export default function VoiceGPS() {
           </div>
         )}
 
-        {/* Enable Voice Button */}
+        {/* Enable / Stop Voice Button */}
         <button
-          onClick={startVoice}
-          disabled={listening}
+          onClick={listening ? stopVoice : startVoice}
           style={{
             padding: "14px 36px",
             background: listening
-              ? "rgba(0,255,150,0.1)"
+              ? "rgba(255,50,50,0.15)"
               : "linear-gradient(90deg, rgba(120,0,180,0.4), rgba(233,30,140,0.3))",
-            border: `1px solid ${listening ? "rgba(0,255,150,0.5)" : "rgba(233,30,140,0.6)"}`,
+            border: `1px solid ${listening ? "rgba(255,80,80,0.6)" : "rgba(233,30,140,0.6)"}`,
             borderRadius: "8px",
-            color: "#f8a8d8",
+            color: listening ? "#ff8080" : "#f8a8d8",
             fontSize: "13px",
             letterSpacing: "2px",
             fontFamily: "'Orbitron', monospace",
             fontWeight: 700,
-            cursor: listening ? "default" : "pointer",
+            cursor: "pointer",
             boxShadow: listening
-              ? "0 0 25px rgba(0,255,150,0.3)"
+              ? "0 0 25px rgba(255,80,80,0.25)"
               : "0 0 25px rgba(233,30,140,0.2)",
             transition: "all 0.3s ease",
           }}
         >
-          {listening ? "LISTENING..." : "ENABLE VOICE"}
+          {listening ? "■  STOP LISTENING" : "ENABLE VOICE"}
         </button>
 
         {/* Expandable Map Box */}
