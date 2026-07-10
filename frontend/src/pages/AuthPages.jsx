@@ -304,7 +304,7 @@
 //   }, []);
 //   const handleLoginCredentialResponse = async (response) => {
 //     console.log("Google token:", response.credential);
-//     const res = await fetch("http://localhost:5000/api/auth/google", {
+//     const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/auth/google`, {
 //       method: "POST",
 //       headers: { "Content-Type": "application/json" },
 //       body: JSON.stringify({ token: response.credential }),
@@ -1267,7 +1267,7 @@ function LoginPage({ onSwitch }) {
     console.log("GOOGLE RESPONSE:", response);
     try {
       const res = await fetch(
-        "http://localhost:5000/api/auth/google",
+        `${import.meta.env.VITE_API_URL || ""}/api/auth/google`,
         {
           method: "POST",
           headers: {

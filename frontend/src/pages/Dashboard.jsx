@@ -1397,7 +1397,7 @@ export default function Dashboard() {
           return;
         }
         const res = await fetch(
-          "http://localhost:5000/api/profile",
+          `${import.meta.env.VITE_API_URL || ""}/api/profile`,
           {
             headers: { Authorization: `Bearer ${token}` },
           },

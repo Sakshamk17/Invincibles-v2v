@@ -14,7 +14,7 @@ export const triggerSOS = async (lat, lng) => {
   const API_URL = import.meta.env.VITE_API_URL;
 
   console.log("Triggering SOS for userId:", userId, "at", lat, lng);
-  const res = await fetch("http://localhost:5000/api/sos", {
+  const res = await fetch(`${API_URL || ""}/api/sos`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
