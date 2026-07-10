@@ -1243,7 +1243,7 @@ function LoginPage({ onSwitch }) {
     // ── Dummy credential bypass (works without DB) ──
     if (email === "dummy@gmail.com" && password === "dummy@123") {
       localStorage.setItem("token", "dummy-token-local");
-      localStorage.setItem("userId", "dummy-user-001");
+      localStorage.setItem("userId", "000000000000000000000001");
       localStorage.setItem("userName", "Demo User");
       console.log("✅ Dummy login successful!");
       navigate("/home");

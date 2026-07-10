@@ -16,6 +16,12 @@ const authMiddleware = (req, res, next) => {
 
         const token = authHeader.split(" ")[1];
 
+        // Support dummy login token for testing/deployed demo
+        if (token === "dummy-token-local") {
+            req.user = { id: "000000000000000000000001" };
+            return next();
+        }
+
         // Verify token
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
