@@ -48,12 +48,31 @@ export default function SafeHavens() {
         );
         out body center;`;
 
-      const overpassUrl = import.meta.env.DEV 
-        ? `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}` 
-        : `/overpass-api/api/interpreter?data=${encodeURIComponent(query)}`;
-      const response = await fetch(overpassUrl);
+      const mirrors = [
+        "https://overpass.kumi.systems/api/interpreter",
+        "https://overpass.osm.ch/api/interpreter",
+        "https://lz4.overpass-api.de/api/interpreter"
+      ];
 
-      if (!response.ok) throw new Error("Overpass query failed");
+      let response;
+      let lastError;
+      for (const mirror of mirrors) {
+        try {
+          const url = `${mirror}?data=${encodeURIComponent(query)}`;
+          response = await fetch(url);
+          if (response.ok) {
+            break;
+          } else {
+            lastError = new Error(`Status ${response.status} from ${mirror}`);
+          }
+        } catch (err) {
+          lastError = err;
+        }
+      }
+
+      if (!response || !response.ok) {
+        throw lastError || new Error("All Overpass query mirrors failed");
+      }
       const data = await response.json();
       
       const elements = (data.elements || []).map(item => {
