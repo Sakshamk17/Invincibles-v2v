@@ -48,7 +48,10 @@ export default function SafeHavens() {
         );
         out body center;`;
 
-      const response = await fetch("https://overpass-api.de/api/interpreter", {
+      const overpassUrl = import.meta.env.DEV 
+        ? "https://overpass-api.de/api/interpreter" 
+        : "/overpass-api/api/interpreter";
+      const response = await fetch(overpassUrl, {
         method: "POST",
         body: query
       });

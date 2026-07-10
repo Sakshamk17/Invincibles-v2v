@@ -16,7 +16,11 @@
       "destination": "https://nariguard-backend.vercel.app/api/:path*"
     },
     {
-      "source": "/((?!api).*)" ,
+      "source": "/overpass-api/:path*",
+      "destination": "https://overpass-api.de/:path*"
+    },
+    {
+      "source": "/((?!api|overpass-api).*)" ,
       "destination": "/index.html"
     }
   ]

@@ -16,6 +16,10 @@
       "dest": "https://nariguard-1.onrender.com/api/$1"
     },
     {
+      "src": "/overpass-api/(.*)",
+      "dest": "https://overpass-api.de/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
