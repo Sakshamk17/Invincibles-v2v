@@ -10,14 +10,14 @@
       ]
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "https://nariguard-1.onrender.com/api/$1"
+      "source": "/api/:path*",
+      "destination": "https://nariguard-backend.vercel.app/api/:path*"
     },
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/((?!api).*)" ,
+      "destination": "/index.html"
     }
   ]
 }
