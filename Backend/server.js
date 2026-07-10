@@ -43,6 +43,48 @@ app.use("/api/sos", sosRoutes);
 app.use("/api/harassment", harassmentRoutes);
 app.use("/api/tracking", liveTrackingRoutes);
 
+// Overpass API Proxy Route to prevent CORS blocks in frontend
+app.post("/api/overpass", async (req, res) => {
+  try {
+    const { query } = req.body;
+    if (!query) {
+      return res.status(400).json({ error: "Query is required" });
+    }
+
+    const mirrors = [
+      "https://overpass-api.de/api/interpreter",
+      "https://lz4.overpass-api.de/api/interpreter",
+      "https://overpass.kumi.systems/api/interpreter"
+    ];
+
+    let response;
+    let lastError;
+
+    for (const mirror of mirrors) {
+      try {
+        const url = `${mirror}?data=${encodeURIComponent(query)}`;
+        response = await fetch(url, {
+          headers: {
+            "User-Agent": "NariGuard/1.0 (https://nariguard.vercel.app)"
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          return res.json(data);
+        } else {
+          lastError = new Error(`Status ${response.status} from ${mirror}`);
+        }
+      } catch (err) {
+        lastError = err;
+      }
+    }
+
+    res.status(502).json({ error: lastError?.message || "All Overpass API mirrors failed" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 const PORT = process.env.PORT || 8000;
 
 mongoose.connect(process.env.MONGO_URI)

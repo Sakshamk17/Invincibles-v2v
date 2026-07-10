@@ -48,33 +48,20 @@ export default function SafeHavens() {
         );
         out body center;`;
 
-      const mirrors = import.meta.env.DEV
-        ? ["https://overpass-api.de/api/interpreter"]
-        : [
-            "https://lz4.overpass-api.de/api/interpreter",
-            "https://overpass.kumi.systems/api/interpreter",
-            "https://overpass.osm.ch/api/interpreter",
-            "https://overpass-api.de/api/interpreter"
-          ];
+      const baseUrl = import.meta.env.DEV 
+        ? (import.meta.env.VITE_API_URL || "http://localhost:5000") 
+        : "";
 
-      let response;
-      let lastError;
-      for (const mirror of mirrors) {
-        try {
-          const url = `${mirror}?data=${encodeURIComponent(query)}`;
-          response = await fetch(url);
-          if (response.ok) {
-            break;
-          } else {
-            lastError = new Error(`Status ${response.status} from ${mirror}`);
-          }
-        } catch (err) {
-          lastError = err;
-        }
-      }
+      const response = await fetch(`${baseUrl}/api/overpass`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ query })
+      });
 
-      if (!response || !response.ok) {
-        throw lastError || new Error("All Overpass query mirrors failed");
+      if (!response.ok) {
+        throw new Error("Overpass query failed");
       }
       const data = await response.json();
       
