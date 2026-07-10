@@ -465,6 +465,40 @@ function Navbar({ name }) {
                   PROFILE
                 </span>
               </div>
+              {/* Report option */}
+              <div
+                onClick={() => {
+                  setDropdownOpen(false);
+                  navigate("/report");
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "11px 16px",
+                  cursor: "pointer",
+                  borderBottom: "1px solid rgba(180,20,120,0.07)",
+                  transition: "background .15s",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = "rgba(233,30,140,0.07)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.background = "transparent")
+                }
+              >
+                <span style={{ fontSize: "14px", flexShrink: 0 }}>🚨</span>
+                <span
+                  style={{
+                    fontFamily: "'Courier New',monospace",
+                    fontSize: "11px",
+                    letterSpacing: "2px",
+                    color: "rgba(240,168,210,0.8)",
+                  }}
+                >
+                  REPORT INCIDENT
+                </span>
+              </div>
 
               {/* Logout option */}
               <div

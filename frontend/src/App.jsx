@@ -7,6 +7,7 @@ import SOSConfirmation from "./pages/sosConfirmation";
 import HomePage from "./pages/HomePage";
 import NariGuardFlipbook from "./pages/NariGuardFlipbook";
 import Dashboard from "./pages/Dashboard";
+import HarassmentReport from "./pages/HarassmentReport";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
 
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/sos-confirmation" element={<SOSConfirmation />} />
+        <Route path="/report" element={<HarassmentReport />} />
       
       </Routes>
     </BrowserRouter>
