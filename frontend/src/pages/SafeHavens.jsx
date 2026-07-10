@@ -49,12 +49,9 @@ export default function SafeHavens() {
         out body center;`;
 
       const overpassUrl = import.meta.env.DEV 
-        ? "https://overpass-api.de/api/interpreter" 
-        : "/overpass-api/api/interpreter";
-      const response = await fetch(overpassUrl, {
-        method: "POST",
-        body: query
-      });
+        ? `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}` 
+        : `/overpass-api/api/interpreter?data=${encodeURIComponent(query)}`;
+      const response = await fetch(overpassUrl);
 
       if (!response.ok) throw new Error("Overpass query failed");
       const data = await response.json();
