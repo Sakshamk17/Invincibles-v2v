@@ -11,7 +11,7 @@ export const triggerSOS = async (lat, lng) => {
   // Decode token to get user info
   const payload = JSON.parse(atob(token.split(".")[1]));
   const userId = payload.id;
-  const API_URL = import.meta.env.VITE_API_URL;
+  const API_URL = import.meta.env.DEV ? (import.meta.env.VITE_API_URL || "http://localhost:5000") : "";
 
   console.log("Triggering SOS for userId:", userId, "at", lat, lng);
   const res = await fetch(`${API_URL || ""}/api/sos`, {

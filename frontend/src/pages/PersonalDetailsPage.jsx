@@ -968,7 +968,7 @@ export default function PersonalDetailsPage() {
           return;
         }
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL || ""}/api/profile`,
+          `${import.meta.env.DEV ? (import.meta.env.VITE_API_URL || "http://localhost:5000") : ""}/api/profile`,
           {
             method: "GET",
             headers: {
@@ -1047,7 +1047,7 @@ export default function PersonalDetailsPage() {
 
       const profileData = { personal, contacts: emergencyContacts, address };
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL || ""}/api/profile`,
+        `${import.meta.env.DEV ? (import.meta.env.VITE_API_URL || "http://localhost:5000") : ""}/api/profile`,
         {
           method: isProfileExists ? "PUT" : "POST",
           headers: {

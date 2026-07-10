@@ -1267,7 +1267,7 @@ function LoginPage({ onSwitch }) {
     console.log("GOOGLE RESPONSE:", response);
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL || ""}/api/auth/google`,
+        `${import.meta.env.DEV ? (import.meta.env.VITE_API_URL || "http://localhost:5000") : ""}/api/auth/google`,
         {
           method: "POST",
           headers: {
